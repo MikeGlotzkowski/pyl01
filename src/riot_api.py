@@ -43,9 +43,9 @@ def get_match_details(game_id):
         game_id)
     r = requests.get(url, headers=headers)
     ok = check_response(r)
+    print(r)
     if not ok:
         return get_match_details(game_id)
-    print(r)
     return r.json()
 
 
