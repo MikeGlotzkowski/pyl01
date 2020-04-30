@@ -15,5 +15,5 @@ for summoner_index, summoner_name in enumerate(all_summoner_names):
     for match_index, match in enumerate(matches_for_summoner):
         match_details = riot_api.get_match_details(match)
         db.insert_to_collection_if_not_exists(collection, match_details, True)
-        print("match {0} of {1} matches of summoner {2} of {3} summoners.".format(
+        print("match {0}/{1} matches of summoner {2}/{3} summoners.".format(
             (match_index+1), len(matches_for_summoner), (summoner_index+1), len(all_summoner_names)))
