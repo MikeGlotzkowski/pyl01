@@ -4,8 +4,8 @@ import riot_api
 import database as db
 
 connection = db.get_connection()
-collection = db.get_connection_to_collection(connection, "tft01")
-number_of_matches_per_player = 100
+collection = db.get_connection_to_collection(connection, riot_api.Available_tiers.challenger.name)
+number_of_matches_per_player = 200
 
 all_summoner_names = riot_api.get_all_summoner_names_in_league(
     riot_api.Available_tiers.challenger.name)

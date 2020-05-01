@@ -4,7 +4,7 @@ import pymongo
 connection_is_open = False
 mongo_client = None
 connection = None
-database_name = "reddit_data"
+database_name = "tft_data"
 
 
 def open_connection():
@@ -51,6 +51,7 @@ def insert_to_collection_if_not_exists(collection, obj, use_match_number_as_id=F
         obj["_id"] = obj["metadata"]["match_id"]
     found_one = collection.find_one({"_id": obj["_id"]})
     if found_one:
+        print("match already in database")
         pass
     else:
         collection.insert_one(obj)
