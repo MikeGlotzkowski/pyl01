@@ -13,6 +13,11 @@ for summoner_index, summoner_name in enumerate(all_summoner_names):
     matches_for_summoner = riot_api.get_matches_by_summoner_name(
         summoner_name, number_of_matches_per_player)
     for match_index, match in enumerate(matches_for_summoner):
+        is_in_db_already = db.found_in_collection(
+            match, collection)
+        if is_in_db_already:
+            print("match is in db already")
+            continue
         try:
             match_details = riot_api.get_match_details(match)
         except Exception as e:

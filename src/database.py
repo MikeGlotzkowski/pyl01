@@ -55,3 +55,10 @@ def insert_to_collection_if_not_exists(collection, obj, use_match_number_as_id=F
         pass
     else:
         collection.insert_one(obj)
+
+
+def found_in_collection(id, collection):
+    found_one = collection.find_one({"_id": id})
+    if found_one:
+        return True
+    return False
