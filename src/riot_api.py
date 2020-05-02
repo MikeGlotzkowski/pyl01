@@ -3,7 +3,9 @@ import os
 import json
 from enum import Enum
 from time import sleep
-
+import logging
+from datetime import datetime
+import pathlib
 # api
 api_key = os.environ.get("RIOT_API_KEY")
 headers = {"X-Riot-Token": api_key, "User-Agent": "sebis-api-wrapper"}
@@ -11,6 +13,28 @@ seconds_to_wait_if_throttled = 120
 
 Available_tiers = Enum(
     "Available_tiers", "challenger grandmaster master diamond platin gold silver bronze iron")
+
+logger_name = "API_logger"
+
+
+def init_logger():
+    logger_level = logging.INFO
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    date_time = datetime.now().strftime('%Y-%m-%d_%H:%M:%S')
+    pathlib.Path('./logs/').mkdir(parents=True, exist_ok=True)
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging.INFO)
+    ch = logging.StreamHandler()
+    fh = logging.FileHandler(
+        "./logs/{0}_{1}".format(date_time, logger_name))
+    ch.setLevel(logger_level)
+    fh.setLevel(logger_level)
+    ch.setFormatter(formatter)
+    fh.setFormatter(formatter)
+    logger.addHandler(ch)
+    logger.addHandler(fh)
+    logger.info('Logger started...')
 
 
 def get_puuid_by_summoner_name(name):
@@ -77,11 +101,12 @@ def check_response(resp):
 
 
 def wait(seconds_to_wait_if_throttled):
-    print("throttled....now waiting for {0} seconds".format(
+    logger = logging.getLogger(logger_name)
+    logger.info("Throttled. Now waiting for {0} seconds".format(
         seconds_to_wait_if_throttled))
     for x in range(0, seconds_to_wait_if_throttled):
         sleep(1)
         if x % 10 == 0:
-            print("only {0} more seconds!".format(
+            logger.info("Throttled for {0} more seconds.".format(
                 seconds_to_wait_if_throttled - x))
-    print("ok let's go again!")
+    logger.info("Continue processing after throttling.")
