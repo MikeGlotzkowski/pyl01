@@ -7,7 +7,7 @@ from .Unit import Unit
 
 @dataclass
 class Participant:
-    participant_id: str
+    participant_id: str # key
     augments: List[str]
     companion: Companion
     gold_left: int

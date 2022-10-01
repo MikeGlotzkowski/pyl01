@@ -1,4 +1,3 @@
-from typing import List
 from typing import Any
 from dataclasses import dataclass
 from .Metadata import Metadata
@@ -6,7 +5,7 @@ from .Info import Info
 
 @dataclass
 class Root:
-    _id: str
+    _id: str # key
     metadata: Metadata
     info: Info
 

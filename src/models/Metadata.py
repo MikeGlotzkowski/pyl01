@@ -5,7 +5,7 @@ from dataclasses import dataclass
 @dataclass
 class Metadata:
     data_version: str
-    match_id: str
+    match_id: str # key
     participants: List[str]
 
     @staticmethod
