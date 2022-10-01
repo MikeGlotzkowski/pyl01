@@ -15,7 +15,7 @@ def open_connection():
         username = os.environ.get("MONGO_USERNAME")
         password = os.environ.get("MONGO_PASSWORD")
         mongo_client = pymongo.MongoClient(
-            "mongodb://{0}:{1}@localhost:27017/".format(username, password))
+            "mongodb://localhost:27017/".format(username, password))
         mongo_database = mongo_client[database_name]
         connection = mongo_database
         connection_is_open = True
@@ -62,3 +62,6 @@ def found_in_collection(id, collection):
     if found_one:
         return True
     return False
+
+def get_one_document_of_collection(collection):
+    return collection.find_one()
