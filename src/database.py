@@ -62,3 +62,6 @@ def found_in_collection(id, collection):
     if found_one:
         return True
     return False
+
+def get_one_document_of_collection(collection):
+    return collection.find_one()
